@@ -14,7 +14,8 @@ def solution(A):
             currentMin = avgSum
             ans = i
             
-        # Check three slices (It is possible for three slices to have lower average than two slice). There is no need to check further slices as it can be composed of the two and three slices.
+        # Check three slices (It is possible for three slices to have lower average than two slice). 
+        # There is no need to check further slices as it can be composed of the two and three slices.
         if(i + 2 < len(A)):
             avgSum = ((currentSum + A[i+2]) / 3)
             if(avgSum < currentMin):
