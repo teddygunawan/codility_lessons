@@ -1,56 +1,84 @@
 // you can write to stdout for debugging purposes, e.g.
 // console.log('this is a debug message');
 
-class Queue{
+class Stack{
     constructor(){
-        this.queue = []
-        this.queueSize = 0
+        this.stack = []
+        this.stackSize = 0
     }
     
     push(item){
-        this.queue.push(item)
-        this.queueSize += 1
+        this.stack.push(item)
+        this.stackSize += 1
     }
     
     pop(){
-        this.queue.pop()
-        this.queueSize -= 1
+        this.stack.pop()
+        this.stackSize -= 1
     }
     
-    getQueue(){
-        return this.queue
+    getstack(){
+        return this.stack
     }
     
     getSize(){
-        return this.queueSize
+        return this.stackSize
     }
     
     getEnd(){
-        return this.queue[this.queueSize-1]
+        return this.stack[this.stackSize-1]
     }
 }
 
 
 function solution(A, B) {
     // write your code in JavaScript (Node.js 8.9.4)
-    let queue = new Queue()
+    let stack = new Stack()
     let arrSize = A.length
     let fishNum = A.length
     let i = 0
     while(i < arrSize){
         if(B[i] == 1)
-            queue.push(A[i])
+            stack.push(A[i])
         else{
-            while(queue.getSize() > 0 && B[i] == 0){
+            while(stack.getSize() > 0 && B[i] == 0){
                 fishNum -= 1
-                if(A[i] > queue.getEnd())
-                    queue.pop()
+                if(A[i] > stack.getEnd())
+                    stack.pop()
                 else
                     break
             }
         }
         
         i++
+    }
+    
+    return fishNum
+}
+// you can write to stdout for debugging purposes, e.g.
+// console.log('this is a debug message');
+
+function solution2(A, B) {
+    // write your code in JavaScript (Node.js 8.9.4)
+    let stack = []
+    let fishNum = A.length
+    for(i in A){
+        if(B[i] == 1){
+            stack.push(A[i])
+        }else{
+            while (stack.length > 0){
+                if(stack.length > 0){
+                    if(stack[stack.length-1] > A[i]){
+                        fishNum -= 1
+                        break
+                    }
+                    else{
+                        fishNum -=1
+                        stack.pop()
+                    }
+                }
+            }
+        }
     }
     
     return fishNum
